@@ -32,8 +32,13 @@
       rickybobby = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         # > Our main nixos configuration file <
-        modules = [./nixos/configuration.nix];
+        modules = [./hosts/rickybobby/configuration.nix];
       };
+      cappuccino = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+	# > Our main nixos configuration file <
+	modules = [./hosts/cappuccino/configuration.nix];
+      };  	
     };
 
     # Standalone home-manager configuration entrypoint
@@ -44,8 +49,13 @@
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = {inherit inputs outputs;};
         # > Our main home-manager configuration file <
-        modules = [./home-manager/home.nix];
+        modules = [./home-manager/rickybobby.nix];
       };
+      "alex@cappuccino = {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+	extraSpecialArgs = {inherit inputs outputs;};
+	# > Our main home-manager configuration file <
+	modules = [./home-manager/cappuccino.nix]
     };
   };
 }
