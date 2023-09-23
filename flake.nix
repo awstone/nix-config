@@ -25,10 +25,27 @@
   } @ inputs: let
     inherit (self) outputs;
   in {
+
+    # Standalone home-manager configuration entrypoint
+    # Available through 'home-manager --flake .#your-username@your-hostname'
+    homeConfigurations = {
+      "alex@rickybobby" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+        extraSpecialArgs = {inherit inputs outputs;};
+        # > Our main home-manager configuration file <
+        modules = [./home/alex/rickybobby.nix];
+      };
+      "alex@cappuccino" = {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+	extraSpecialArgs = {inherit inputs outputs;};
+	# > Our main home-manager configuration file <
+	modules = [./home/alex/cappuccino.nix];
+      };
+    };
+
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
-      # FIXME replace with your hostname
       rickybobby = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         # > Our main nixos configuration file <
@@ -39,23 +56,6 @@
 	# > Our main nixos configuration file <
 	modules = [./hosts/cappuccino/configuration.nix];
       };  	
-    };
-
-    # Standalone home-manager configuration entrypoint
-    # Available through 'home-manager --flake .#your-username@your-hostname'
-    homeConfigurations = {
-      # FIXME replace with your username@hostname
-      "alex@rickybobby" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs outputs;};
-        # > Our main home-manager configuration file <
-        modules = [./home-manager/rickybobby.nix];
-      };
-      "alex@cappuccino = {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-	extraSpecialArgs = {inherit inputs outputs;};
-	# > Our main home-manager configuration file <
-	modules = [./home-manager/cappuccino.nix]
     };
   };
 }
