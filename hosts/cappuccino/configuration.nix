@@ -95,9 +95,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.nix
+    pkgs.emacs29
     vim
-    emacs29
     git
   ];
 
@@ -112,7 +111,7 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -127,19 +126,51 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
-  
+
+  # Enable OpenGL 
   hardware.opengl = {
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
   };
+
+  # Load nvidia driver for Xorg and Wayland 
   services.xserver.videoDrivers = ["nvidia"];
-  hardware.nvidia = {
+
+  hardware.nvidia= {
+
+    # Modesetting is required.
     modesetting.enable = true;
+
+    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
     powerManagement.enable = false;
+    # Fine-grained power management. Turns off GPU when not in use. 
+    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
+    powerManagement.finegrained = false;
+
+    # Use the Nvidia open source kernel module (not to be confused with the
+    # independent third-party "nouveau" open source driver).
+    # Support is limited to the Turing and later architectures. Full list of 
+    # supported GPUs is at:
+    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
+    # Only available from driver 515.43.04+
+    # Do not disable this unless your GPU is unsupported or if you have good reason to.
     open = true;
+
+    # Enable the Nvidia settings menu,
+    # accessible via `nvidia-settings`.
     nvidiaSettings = true;
+
+    # Optinoally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.stable;
-  };  
+  };
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
+  };
+
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
 }
