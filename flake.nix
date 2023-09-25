@@ -37,7 +37,9 @@
 		"alex@rickybobby" = home-manager.lib.homeManagerConfiguration {
 		    pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
 		    extraSpecialArgs = {inherit inputs outputs;};
-		    modules = [./home/alex/rickybobby.nix];
+		    modules = [
+		      ./home/alex/rickybobby.nix
+		    ];
 		};
 		"alex@cappuccino" = {
 		    pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
@@ -51,7 +53,18 @@
 	    nixosConfigurations = {
 		rickybobby = nixpkgs.lib.nixosSystem {
 		    specialArgs = {inherit inputs outputs;};
-		    modules = [./hosts/rickybobby/configuration.nix];
+		    modules = [
+		      ./hosts/rickybobby/configuration.nix
+		      home-manager.nixosModules.home-manager
+		      {
+		        home-manager.useGlobalPkgs = true;
+			home-manager.useUserPackages = true;
+			home-manager.users.alex = import ./users/alex/home.nix;
+
+                        # Optionally, use home-manager.extraSpecialArgs to pass
+			# arguments to home.nix
+	              }
+		    ];
 		};
 		cappuccino = nixpkgs.lib.nixosSystem {
 		    specialArgs = {inherit inputs outputs;};
