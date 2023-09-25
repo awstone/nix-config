@@ -50,6 +50,99 @@
   # Enable home-manager and git
   programs.home-manager.enable = true;
   programs.git.enable = true;
+  programs.ssh = {
+    enable = true;
+    matchBlocks = {
+      carina = {
+        port = ;
+        hostname = ;
+        user = "alex";
+    };
+    extraConfig = ''
+      Host 172.101.69.138 rickybobby
+       HostName 172.101.69.138
+       ForwardX11Trusted yes
+       User alex
+       ServerAliveInterval 60
+       Port 977
+
+      Host 192.168.1.67 localrick
+        HostName 192.168.1.67
+        ForwardX11Trusted yes
+        User alex
+        ServerAliveInterval 60
+        Port 22
+
+      Host carina.cse.buffalo.edu carina
+        HostName carina.cse.buffalo.edu
+        ForwardX11Trusted yes
+        ProxyCommand ssh -W %h:%p timberlake
+        ServerAliveInterval 60
+        User awstone
+
+      Host draco.cse.buffalo.edu draco
+        HostName draco.cse.buffalo.edu
+        ForwardX11Trusted yes
+        ProxyCommand ssh -W %h:%p timberlake
+        ServerAliveInterval 60
+        User awstone
+
+      Host regulus.cedar.buffalo.edu regulus
+        HostName regulus.cedar.buffalo.edu
+        ForwardX11Trusted yes
+        ProxyCommand ssh -W %h:%p timberlake
+        ServerAliveInterval 60
+        User awstone
+
+      Host hal.cedar.buffalo.edu hal
+        HostName hal.cedar.buffalo.edu
+        ForwardX11Trusted yes
+        ProxyCommand ssh -W %h:%p timberlake
+        ServerAliveInterval 60
+        User awstone
+
+      Host arcturus.cedar.buffalo.edu arcturus
+        HostName arcturus.cedar.buffalo.edu
+        ForwardX11Trusted yes
+        ProxyCommand ssh -W %h:%p timberlake
+        ServerAliveInterval 60
+        User awstone
+
+      Host vega.cedar.buffalo.edu vega
+        HostName vega.cedar.buffalo.edu
+        ForwardX11Trusted yes
+        ProxyCommand ssh -W %h:%p timberlake
+        ServerAliveInterval 60
+        User awstone
+
+      Host timberlake.cse.buffalo.edu timberlake
+        HostName timberlake.cse.buffalo.edu
+        ForwardX11Trusted yes
+        User awstone
+
+      Host minijeff.acvlabs.acvauctions.com minijeff
+        HostName minijeff.acvlabs.acvauctions.com
+        User alex
+
+      Host alice.cedar.buffalo.edu alice
+          HostName alice.cedar.buffalo.edu
+          ForwardX11Trusted yes
+          ProxyCommand ssh -W %h:%p timberlake
+          ServerAliveInterval 60
+          User awstone
+
+      Host *
+        AddKeysToAgent yes
+        IdentityFile ~/.ssh/id_ed25519
+        ControlMaster auto
+        ControlPath ~/.ssh/control/%r@%h
+        ServerAliveInterval 60
+        ControlMaster auto
+        ControlPath ~/.ssh/master-%r@%h:%p
+        ControlPersist 600
+      '';
+  };
+  
   programs.emacs = {
     enable = true;
     package = pkgs.emacs29;

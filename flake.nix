@@ -13,6 +13,10 @@
 	  home-manager.url = "github:nix-community/home-manager/release-23.05";
 	  home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    # Secrets
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
 	  # TODO: Add any other flake you might need
 	  # hardware.url = "github:nixos/nixos-hardware";
 
@@ -26,6 +30,7 @@
 	    nixpkgs,
 	    nix-darwin,
 	    home-manager,
+      sops-nix,
 	    ...
   } @ inputs: let
     inherit (self) outputs;
@@ -43,10 +48,10 @@
 		        # home-manager.useGlobalPkgs = true;
 			      # home-manager.useUserPackages = true;
 			      home-manager.users.alex = import ./users/alex/home.nix;
-
             # Optionally, use home-manager.extraSpecialArgs to pass
 			      # arguments to home.nix
 	        }
+          sops-nix.nixosModules.sops 
 		    ];
 		  };
 		  cappuccino = nixpkgs.lib.nixosSystem {
