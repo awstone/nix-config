@@ -102,6 +102,24 @@
     ];
   };
 
+  users.users.albert = {
+    isNormalUser = true;
+    description = "Albert Cowie";
+    extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [
+      firefox
+    ];
+  };
+
+  users.users.matt = {
+    isNormalUser = true;
+    description = "Matt Knepley";
+    extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [
+      firefox
+    ];
+  };
+  
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 

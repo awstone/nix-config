@@ -63,6 +63,8 @@
 		        # home-manager.useGlobalPkgs = true;
 			      # home-manager.useUserPackages = true;
 			      home-manager.users.alex = import ./users/alex/home.nix;
+            home-manager.users.albert = import ./users/albert/home.nix;
+            home-manager.users.matt = import ./users/matt/home.nix;
             # Optionally, use home-manager.extraSpecialArgs to pass
 			      # arguments to home.nix
 	        }
