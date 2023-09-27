@@ -154,6 +154,7 @@
       epkgs.org
       epkgs.org-bullets
       epkgs.auctex
+#       epkgs.preview-latex
     ];
     extraConfig = ''
       (require 'package)
@@ -237,6 +238,8 @@
         :config
         (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
       (setq org-log-done t)
+      (load "auctex.el" nil t t)
+      (load "preview-latex.el" nil t t) 
     '';
   };
 
