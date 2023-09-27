@@ -50,6 +50,12 @@
   services.xserver.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
+  # in order for the xkbOptions to take effect
+  # you must do the following:
+  # 1. rebuild nixos and switch
+  # 2. gsettings reset org.gnome.desktop.input-sources xkb-options
+  # 3. gsettings reset org.gnome.desktop.input-sources sources
+  # 4. reboot
   services.xserver = {
     layout = "us";
     xkbVariant = "";
