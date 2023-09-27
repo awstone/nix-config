@@ -129,14 +129,7 @@
         serverAliveInterval = 60;
       };
     };
-
-    #   Host alice.cedar.buffalo.edu alice
-    #       HostName alice.cedar.buffalo.edu
-    #       ForwardX11Trusted yes
-    #       ProxyCommand ssh -W %h:%p timberlake
-    #       ServerAliveInterval 60
-    #       User awstone
-
+    
     #   Host *
     #     AddKeysToAgent yes
     #     IdentityFile ~/.ssh/id_ed25519
@@ -160,6 +153,7 @@
       epkgs.lsp-mode
       epkgs.org
       epkgs.org-bullets
+      epkgs.auctex
     ];
     extraConfig = ''
       (require 'package)
