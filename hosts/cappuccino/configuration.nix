@@ -131,6 +131,13 @@
     git
     htop
     pkgs.cudaPackages_12_1.cudatoolkit
+    mpi
+    blas
+    gcc
+    gfortran
+    python3
+    pkgs.gnumake
+    pkgs.cmake
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
