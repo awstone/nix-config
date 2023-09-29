@@ -50,6 +50,7 @@
   # Enable home-manager and git
   programs.home-manager.enable = true;
   programs.git.enable = true;
+  programs.texlive.enable = true;
   programs.ssh = {
     enable = true;
     matchBlocks = {
@@ -228,6 +229,7 @@
         (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
       (setq org-log-done t)
       (load "auctex.el" nil t t)
+      
       ;; (load "preview-latex.el" nil t t) 
     '';
   };
