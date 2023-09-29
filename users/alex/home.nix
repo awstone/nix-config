@@ -47,10 +47,11 @@
   # programs.neovim.enable = true;
   # home.packages = with pkgs; [ slack ];
 
+  
+
   # Enable home-manager and git
   programs.home-manager.enable = true;
   programs.git.enable = true;
-  programs.texlive.enable = true;
   programs.ssh = {
     enable = true;
     matchBlocks = {
@@ -234,6 +235,8 @@
     '';
   };
 
+  programs.texlive.enable = true;
+  
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
