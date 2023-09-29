@@ -23,6 +23,13 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.networkmanager.enableStrongSwan = true;
+  services.xl2tpd.enable = true;
+  services.strongswan = {
+    enable = true;
+    secrets = [ "ipsec.d/ipsec.nm-l2tp.secrets" ];
+  };
+
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -130,6 +137,7 @@
     vim
     git
     htop
+    networkmanagerapplet
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

@@ -47,9 +47,8 @@
   # programs.neovim.enable = true;
   home.packages = with pkgs; [
     texlive.combined.scheme-full
+    docker
   ];
-
-  
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
