@@ -153,10 +153,12 @@
       epkgs.org
       epkgs.org-bullets
       epkgs.auctex
+      epkgs.pdf-tools
       # epkgs.preview-latex
     ];
     extraConfig = ''
       (require 'package)
+      (require 'pdf-tools)
       (require 'company)
       (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
       ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
