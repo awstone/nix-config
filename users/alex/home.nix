@@ -45,7 +45,9 @@
 
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
-  # home.packages = with pkgs; [ slack ];
+  home.packages = with pkgs; [
+    texlive.combined.scheme-full
+  ];
 
   
 
@@ -234,8 +236,6 @@
       ;; (load "preview-latex.el" nil t t) 
     '';
   };
-
-  programs.texlive.enable = true;
   
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
