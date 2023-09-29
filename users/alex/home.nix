@@ -129,17 +129,6 @@
         serverAliveInterval = 60;
       };
     };
-    
-    #   Host *
-    #     AddKeysToAgent yes
-    #     IdentityFile ~/.ssh/id_ed25519
-    #     ControlMaster auto
-    #     ControlPath ~/.ssh/control/%r@%h
-    #     ServerAliveInterval 60
-    #     ControlMaster auto
-    #     ControlPath ~/.ssh/master-%r@%h:%p
-    #     ControlPersist 600
-    #   '';
   };
   
   programs.emacs = {
@@ -154,7 +143,7 @@
       epkgs.org
       epkgs.org-bullets
       epkgs.auctex
-#       epkgs.preview-latex
+      # epkgs.preview-latex
     ];
     extraConfig = ''
       (require 'package)
