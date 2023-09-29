@@ -57,6 +57,13 @@
   programs.ssh = {
     enable = true;
     matchBlocks = {
+      cappuccino = {
+        hostname = "128.205.211.11";
+        user = "alex";
+        forwardX11Trusted = true;
+        serverAliveInterval = 60;
+        proxyCommand = "ssh -W %h:%p timberlake";
+      };
       timberlake = {
         hostname = "timberlake.cse.buffalo.edu";
         user = "awstone";
