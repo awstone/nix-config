@@ -79,7 +79,6 @@
       rickybobby = {
         hostname = "172.101.69.138";
         user = "alex";
-        port = 977;
         forwardX11Trusted = true;
         serverAliveInterval = 60;
       };
