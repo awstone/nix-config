@@ -55,6 +55,8 @@
   programs.git.enable = true;
   programs.ssh = {
     enable = true;
+    controlMaster = "auto";
+    controlPath = "~/.ssh/master-%r@%h:%p";
     matchBlocks = {
       cappuccino = {
         hostname = "128.205.211.11";
