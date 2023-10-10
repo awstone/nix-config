@@ -155,6 +155,7 @@
       epkgs.org-bullets
       epkgs.auctex
       epkgs.pdf-tools
+      epkgs.org-roam
       # epkgs.preview-latex
     ];
     extraConfig = ''
@@ -241,7 +242,7 @@
         (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
       (setq org-log-done t)
       (load "auctex.el" nil t t)
-      
+      (require 'org-roam)
       ;; (load "preview-latex.el" nil t t) 
     '';
   };
