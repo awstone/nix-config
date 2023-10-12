@@ -28,6 +28,7 @@
       #     patches = [ ./change-hello-to-hi.patch ];
       #   });
       # })
+      
     ];
     # Configure your nixpkgs instance
     config = {
@@ -40,7 +41,7 @@
 
   home = {
     username = "alex";
-    homeDirectory = "/Users/alex";
+    homeDirectory = "/home/alex";
   };
 
   # Add stuff for your user as you see fit:
@@ -154,11 +155,12 @@
       epkgs.org
       epkgs.org-bullets
       epkgs.auctex
-      epkgs.reftex
+      # epkgs.reftex
       epkgs.pdf-tools
       epkgs.org-roam
       # epkgs.preview-latex
     ];
+
     extraConfig = ''
       (require 'package)
       (require 'pdf-tools)

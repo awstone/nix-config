@@ -8,7 +8,6 @@
 	  # MacOS stuff
 	  nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
-    nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
 
 	  # Home manager
 	  home-manager.url = "github:nix-community/home-manager/master";
@@ -17,10 +16,8 @@
     # Secrets
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-    
-    # emacs community overlay
-    emacs-overlay.url = "github:nix-community/emacs-overlay/master";
-    emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
+
+    # overlays 
     
 	  # TODO: Add any other flake you might need
 	  # hardware.url = "github:nixos/nixos-hardware";
@@ -48,7 +45,6 @@
 		    specialArgs = {inherit inputs outputs;};
 		    modules = [
 		      ./hosts/rickybobby/configuration.nix
-          { nixpkgs.overlays = [ inputs.emacs-overlay.overlay ]; }
 		      home-manager.nixosModules.home-manager
 		      {
 		        # home-manager.useGlobalPkgs = true;
@@ -64,7 +60,6 @@
 		    specialArgs = {inherit inputs outputs;};
 		    modules = [
 		      ./hosts/cappuccino/configuration.nix
-          { nixpkgs.overlays = [ inputs.emacs-overlay.overlay ]; }
 		      home-manager.nixosModules.home-manager
 		      {
 		        # home-manager.useGlobalPkgs = true;
@@ -78,21 +73,14 @@
           sops-nix.nixosModules.sops 
 		    ];
 		  };
+
 	  };
 
 	  darwinConfigurations = {
 		  beetlejuice = nix-darwin.lib.darwinSystem {
-		      specialArgs = {inherit inputs outputs;};
+		    inherit inputs;
 		    system = "aarch64-darwin";
-		      modules = [
-			  ./hosts/beetlejuice/darwin-configuration.nix
-			  { nixpkgs.overlays = [ inputs.nixpkgs-firefox-darwin.overlay ]; }
-			  home-manager.darwinModules.home-manager
-			  {
-			      # home-manager configuration specific to macOS
-			      home-manager.users.alex = import ./users/alex/home.nix;
-			  }
-		      ];
+		    modules = [./hosts/beetlejuice/configuration.nix];
 		  };
 	  };
 	};
