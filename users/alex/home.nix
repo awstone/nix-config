@@ -154,6 +154,7 @@
       epkgs.org
       epkgs.org-bullets
       epkgs.auctex
+      epkgs.reftex
       epkgs.pdf-tools
       epkgs.org-roam
       # epkgs.preview-latex
@@ -243,6 +244,9 @@
       (setq org-log-done t)
       (load "auctex.el" nil t t)
       (require 'org-roam)
+      (global-auto-revert-mode 1)
+      (setq reftex-plug-into-AUCTeX t)
+      (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
       ;; (load "preview-latex.el" nil t t) 
     '';
   };
