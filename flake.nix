@@ -7,7 +7,8 @@
 
 	  # MacOS stuff
 	  nix-darwin.url = "github:LnL7/nix-darwin";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+      nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+      nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
 
 	  # Home manager
 	  home-manager.url = "github:nix-community/home-manager/master";
@@ -79,6 +80,7 @@
 		    system = "aarch64-darwin";
 		      modules = [
 			  ./hosts/beetlejuice/darwin-configuration.nix
+			  { nixpkgs.overlays = [ inputs.nixpkgs-firefox-darwin.overlay ]; }
 			  home-manager.darwinModules.home-manager
 			  {
 			      # home-manager configuration specific to macOS

@@ -1,6 +1,13 @@
 { config, pkgs, ... }:
 
 {
+  
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.alex = {
+    description = "Alexander Stone";
+    home="/Users/alex";
+  };
+
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages =
