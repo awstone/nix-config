@@ -71,14 +71,20 @@
           sops-nix.nixosModules.sops 
 		    ];
 		  };
-
 	  };
 
 	  darwinConfigurations = {
 		  beetlejuice = nix-darwin.lib.darwinSystem {
-		    inherit inputs;
+		      specialArgs = {inherit inputs outputs;};
 		    system = "aarch64-darwin";
-		    modules = [./hosts/beetlejuice/configuration.nix];
+		      modules = [
+			  ./hosts/beetlejuice/darwin-configuration.nix
+			  home-manager.darwinModules.home-manager
+			  {
+			      # home-manager configuration specific to macOS
+			      home-manager.users.alex = import ./users/alex/home.nix;
+			  }
+		      ];
 		  };
 	  };
 	};
