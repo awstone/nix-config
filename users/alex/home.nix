@@ -249,6 +249,26 @@
       (global-auto-revert-mode 1)
       (setq reftex-plug-into-AUCTeX t)
       (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+      (defun open-link-in-eww (link)
+        "Open an Org mode link in eww."
+        (if (string-match "^http" link)
+            (eww-browse-url link)
+          (browse-url-default-browser link)))
+
+      (setq org-link-frame-setup
+            '((file . find-file)
+              (wl . wl-other-frame)
+              (elisp . find-function)
+              (elisp . find-library)
+              (elisp . find-variable)
+              (gnus . org-gnus-no-new-news)
+              (docview . doc-view)
+              (bibtex . bibtex-find-entry)
+              (bbdb . bbdb-redisplay-records)
+              (w3m . w3m)
+              (http . open-link-in-eww)
+              (https . open-link-in-eww)))
+
       ;; (load "preview-latex.el" nil t t) 
     '';
   };
