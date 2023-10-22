@@ -49,6 +49,7 @@
   home.packages = with pkgs; [
     texlive.combined.scheme-full
     docker
+    python3
   ];
 
   # Enable home-manager and git

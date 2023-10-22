@@ -102,6 +102,16 @@
     ];
   };
 
+  users.users.jess = {
+    isNormalUser = true;
+    description = "Jessica Grogan";
+    extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [
+      firefox
+    ];
+  };
+  
+  
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
