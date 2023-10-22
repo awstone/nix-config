@@ -41,11 +41,7 @@
 
   home = {
     username = "alex";
-<<<<<<< Updated upstream
-    homeDirectory = "/home/alex";
-=======
     homeDirectory = "/${if pkgs.stdenv.isDarwin then "Users" else "home"}/alex";
->>>>>>> Stashed changes
   };
 
   # Add stuff for your user as you see fit:
