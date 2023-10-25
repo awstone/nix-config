@@ -76,7 +76,7 @@
       carina = {
         hostname = "carina.cse.buffalo.edu";
         user = "awstone";
-        proxyCommand = "ssh -W %h:%p timberlake";
+        proxyCommand = "ssh -W -Y %h:%p timberlake";
         forwardX11Trusted = true;
         serverAliveInterval = 60;
       };
