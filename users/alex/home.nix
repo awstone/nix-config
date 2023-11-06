@@ -159,6 +159,7 @@
       # epkgs.reftex
       epkgs.pdf-tools
       epkgs.org-roam
+      epkgs.ein
       # epkgs.preview-latex
     ];
 
