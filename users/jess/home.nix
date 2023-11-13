@@ -52,7 +52,11 @@
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
-  programs.git.enable = true;
+  programs.git = {
+    enable = true;
+    userName = "JessicaGrogan";
+    userEmail = "Jessicargrogan@gmail.com";
+  };
   programs.ssh = {
     enable = true;
     controlMaster = "auto";
