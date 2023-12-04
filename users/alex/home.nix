@@ -81,7 +81,7 @@
         serverAliveInterval = 60;
       };
       rickybobby = {
-        hostname = "172.101.69.138";
+        hostname = "68.133.30.100";
         user = "alex";
         forwardX11Trusted = true;
         serverAliveInterval = 60;
