@@ -180,7 +180,7 @@
       ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
       ;; and `package-pinned-packages`. Most users will not need or want to do this.
       ;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-      (package-initialize)
+      ;; trying to suppress emacs macos warning (package-initialize)
       (custom-set-variables
        ;; custom-set-variables was added by Custom.
        ;; If you edit it by hand, you could mess it up, so be careful.
