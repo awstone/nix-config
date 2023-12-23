@@ -134,6 +134,13 @@
         forwardX11Trusted = true;
         serverAliveInterval = 60;
       };
+      mobilejeff = {
+        hostname = "minijeff.acvlabs.acvauctions.com";
+        user = "alex";
+        proxyCommand = "ssh -W %h:%p rickybobby";
+        forwardX11Trusted = true;
+        serverAliveInterval = 60;
+      };
       alice = {
         hostname = "alice.cedar.buffalo.edu";
         user = "awstone";
