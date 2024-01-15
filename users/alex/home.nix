@@ -81,7 +81,7 @@
         serverAliveInterval = 60;
       };
       rickybobby = {
-        hostname = "68.133.30.100";
+        hostname = "68.133.25.172";
         user = "alex";
         forwardX11Trusted = true;
         serverAliveInterval = 60;
@@ -175,6 +175,7 @@
       (require 'package)
       (require 'pdf-tools)
       (require 'leetcode)
+      (setq leetcode-prefer-language "cpp")
       (require 'company)
       (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
       ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
