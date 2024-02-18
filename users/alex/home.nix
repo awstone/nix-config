@@ -220,15 +220,6 @@
       (global-company-mode t)
       (setq global-display-line-numbers-mode t)
       (setq company-idle-delay 0.5) ; set delay to 0.5 seconds
-      (require 'lsp-mode)
-      (add-hook 'python-mode-hook #'lsp)
-      (with-eval-after-load 'lsp-mode
-        (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\\\.pyenv\\\\.*")
-        (lsp-register-client
-         (make-lsp-client :new-connection (lsp-tramp-connection "/home/awstone/phonetic-flashcards/venv/bin/pyls")
-                          :major-modes '(python-mode)
-                          :remote? t
-                          :server-id 'pyls-remote)))
       ;; -*- mode: elisp -*-
 
       ;; Disable the splash screen (to enable it agin, replace the t with 0)
@@ -307,6 +298,27 @@
 
       ;; Bind the function to C-a
       (global-set-key [remap move-beginning-of-line] #'smarter-move-beginning-of-line)
+      (with-eval-after-load 'company
+      (define-key company-active-map [ret] 'company-complete-selection)
+      (define-key company-active-map (kbd "RET") 'company-complete-selection)
+      (define-key company-active-map (kbd "TAB") 'company-complete-selection)
+      (define-key company-active-map [tab] 'company-complete-selection))
+      (require 'lsp-mode)
+      (add-hook 'python-mode-hook #'lsp)
+      (with-eval-after-load 'lsp-mode
+        (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\\\.pyenv\\\\.*")
+        (lsp-register-client
+         (make-lsp-client :new-connection (lsp-tramp-connection "/home/awstone/phonetic-flashcards/venv/bin/pyls")
+                          :major-modes '(python-mode)
+                          :remote? t
+                          :server-id 'pyls-remote)))
+      (add-hook 'c++-mode-hook #'lsp)
+      (add-hook 'c-mode-hook #'lsp)
+
+      ;; Optional: Use lsp-ui for additional UI enhancements (e.g., inline documentation, diagnostics)
+      (use-package lsp-ui
+        :commands lsp-ui-mode)
+
 
 
     '';
