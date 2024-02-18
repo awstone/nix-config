@@ -318,6 +318,15 @@
       ;; Optional: Use lsp-ui for additional UI enhancements (e.g., inline documentation, diagnostics)
       (use-package lsp-ui
         :commands lsp-ui-mode)
+      (defadvice yank (after indent-region activate)
+      (if (member major-mode '(emacs-lisp-mode lisp-mode clojure-mode scheme-mode haskell-mode ruby-mode rspec-mode python-mode c-mode c++-mode objc-mode latex-mode js-mode plain-tex-mode))
+          (let ((mark-even-if-inactive transient-mark-mode))
+            (indent-region (region-beginning) (region-end) nil))))
+
+    (defadvice yank-pop (after indent-region activate)
+      (if (member major-mode '(emacs-lisp-mode lisp-mode clojure-mode scheme-mode haskell-mode ruby-mode rspec-mode python-mode c-mode c++-mode objc-mode latex-mode js-mode plain-tex-mode))
+          (let ((mark-even-if-inactive transient-mark-mode))
+            (indent-region (region-beginning) (region-end) nil))))
 
 
 
