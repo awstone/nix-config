@@ -218,7 +218,6 @@
       (setenv "PETSC_DIR" "~/Repositories/petsc")
       (setenv "PETSC_ARCH" "arch-darwin-c-debug")
       (global-company-mode t)
-      (setq global-display-line-numbers-mode t)
       (setq company-idle-delay 0.5) ; set delay to 0.5 seconds
       ;; -*- mode: elisp -*-
 
@@ -327,6 +326,9 @@
       (if (member major-mode '(emacs-lisp-mode lisp-mode clojure-mode scheme-mode haskell-mode ruby-mode rspec-mode python-mode c-mode c++-mode objc-mode latex-mode js-mode plain-tex-mode))
           (let ((mark-even-if-inactive transient-mark-mode))
             (indent-region (region-beginning) (region-end) nil))))
+
+    ;; Ensure global-display-line-numbers-mode is enabled last
+    (add-hook 'after-init-hook 'global-display-line-numbers-mode)
 
 
 
