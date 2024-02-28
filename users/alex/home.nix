@@ -169,15 +169,29 @@
       epkgs.ein
       # epkgs.preview-latex
       epkgs.leetcode
+      epkgs.projectile
+      epkgs.flycheck
+      epkgs.doom-modeline
+      epkgs.treemacs
+      epkgs.rainbow-delimiters
+      epkgs.all-the-icons
     ];
 
     extraConfig = ''
       (require 'package)
+      (add-to-list 'package-archives
+                   '("melpa" . "https://melpa.org/packages/") t)
+      (package-refresh-contents)
+
       (require 'pdf-tools)
+
       (require 'leetcode)
       (setq leetcode-prefer-language "cpp")
+
       (require 'company)
-      (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+
+
+
       ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
       ;; and `package-pinned-packages`. Most users will not need or want to do this.
       ;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
@@ -315,12 +329,12 @@
       (add-hook 'c-mode-hook #'lsp)
 
       ;; Optional: Use lsp-ui for additional UI enhancements (e.g., inline documentation, diagnostics)
-      (use-package lsp-ui
-        :commands lsp-ui-mode)
-      (defadvice yank (after indent-region activate)
-      (if (member major-mode '(emacs-lisp-mode lisp-mode clojure-mode scheme-mode haskell-mode ruby-mode rspec-mode python-mode c-mode c++-mode objc-mode latex-mode js-mode plain-tex-mode))
-          (let ((mark-even-if-inactive transient-mark-mode))
-            (indent-region (region-beginning) (region-end) nil))))
+      ;; (use-package lsp-ui
+      ;;  :commands lsp-ui-mode)
+      ;; (defadvice yank (after indent-region activate)
+      ;; (if (member major-mode '(emacs-lisp-mode lisp-mode clojure-mode scheme-mode haskell-mode ruby-mode rspec-mode python-mode c-mode c++-mode objc-mode latex-mode js-mode plain-tex-mode))
+      ;;    (let ((mark-even-if-inactive transient-mark-mode))
+      ;;      (indent-region (region-beginning) (region-end) nil))))
 
     (defadvice yank-pop (after indent-region activate)
       (if (member major-mode '(emacs-lisp-mode lisp-mode clojure-mode scheme-mode haskell-mode ruby-mode rspec-mode python-mode c-mode c++-mode objc-mode latex-mode js-mode plain-tex-mode))
@@ -329,6 +343,28 @@
 
     ;; Ensure global-display-line-numbers-mode is enabled last
     (add-hook 'after-init-hook 'global-display-line-numbers-mode)
+
+    (require 'projectile)
+    (projectile-mode +1)
+    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
+    (require 'flycheck)
+    (global-flycheck-mode)
+
+    (require 'doom-modeline)
+    (doom-modeline-mode 1)
+
+    (require 'treemacs)
+    (global-set-key (kbd "C-x t t") 'treemacs)
+
+    (unless (package-installed-p 'rainbow-delimiters)
+      (package-install 'rainbow-delimiters))
+
+    (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
+    (add-hook 'python-mode-hook 'eglot-ensure)
+    (add-hook 'js-mode-hook 'eglot-ensure)
+
 
 
 
