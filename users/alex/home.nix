@@ -368,6 +368,10 @@
     (add-hook 'python-mode-hook 'eglot-ensure)
     (add-hook 'js-mode-hook 'eglot-ensure)
 
+    (add-hook 'emacs-startup-hook 'treemacs)
+    (add-hook 'emacs-startup-hook 'treemacs-select-window)
+
+
 
 
 
