@@ -371,6 +371,20 @@
     (add-hook 'emacs-startup-hook 'treemacs)
     (add-hook 'emacs-startup-hook 'treemacs-select-window)
 
+    (setq tramp-connection-timeout 10)
+
+    (require 'projectile)
+    (projectile-mode +1)
+
+    (defun my/projectile-lsp-setup ()
+       (let ((proj-root (projectile-project-root)))
+         (setq-local lsp-pylsp-server-command
+                     (list "ssh" "draco"
+                           (concat proj-root "venv/bin/pylsp")))))
+
+     (add-hook 'python-mode-hook #'my/projectile-lsp-setup)
+
+
 
 
 
