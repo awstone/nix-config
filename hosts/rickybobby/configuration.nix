@@ -24,6 +24,17 @@
   # Enable networking
   networking.networkmanager.enable = true;
   networking.networkmanager.enableStrongSwan = true;
+
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 53 80 443 ];
+    allowedUDPPortRanges = [
+      { from = 4000; to = 4007; }
+      { from = 8000; to = 8010; }
+      { from = 53; to = 53; }
+    ];
+  };
+  
   services.xl2tpd.enable = true;
   services.strongswan = {
     enable = true;

@@ -174,7 +174,8 @@
       epkgs.doom-modeline
       epkgs.treemacs
       epkgs.rainbow-delimiters
-      epkgs.all-the-icons
+      # epkgs.all-the-icons
+      epkgs.nerd-icons
       epkgs.zenburn-theme
       epkgs.pyvenv
     ];
@@ -387,9 +388,13 @@
 
     (require 'pyvenv)
 
+    (with-eval-after-load 'nerd-icons
+      (nerd-icons-install-fonts t))
 
-
-
+    (set-frame-parameter nil 'fullscreen 'fullboth)
+    (menu-bar-mode -1)
+    (scroll-bar-mode -1)
+    (tool-bar-mode -1)
 
 
     '';
