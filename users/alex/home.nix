@@ -176,6 +176,7 @@
       epkgs.rainbow-delimiters
       epkgs.all-the-icons
       epkgs.zenburn-theme
+      epkgs.pyvenv
     ];
 
     extraConfig = ''
@@ -377,12 +378,14 @@
     (projectile-mode +1)
 
     (defun my/projectile-lsp-setup ()
-       (let ((proj-root (projectile-project-root)))
-         (setq-local lsp-pylsp-server-command
-                     (list "ssh" "draco"
-                           (concat proj-root "venv/bin/pylsp")))))
+      (let ((proj-root (projectile-project-root)))
+        (setq-local lsp-pylsp-server-command
+                    (list "ssh" "draco"
+                          (concat proj-root "venv/bin/pylsp")))))
 
-     (add-hook 'python-mode-hook #'my/projectile-lsp-setup)
+    (add-hook 'python-mode-hook #'my/projectile-lsp-setup)
+
+    (require 'pyvenv)
 
 
 
