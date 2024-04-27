@@ -160,6 +160,7 @@
       epkgs.company
       epkgs.doom-themes
       epkgs.lsp-mode
+      epkgs.lsp-ui
       epkgs.org
       epkgs.org-bullets
       epkgs.auctex
@@ -174,10 +175,11 @@
       epkgs.doom-modeline
       epkgs.treemacs
       epkgs.rainbow-delimiters
-      # epkgs.all-the-icons
+      epkgs.all-the-icons
       epkgs.nerd-icons
       epkgs.zenburn-theme
       epkgs.pyvenv
+      epkgs.envrc
     ];
 
     extraConfig = ''
@@ -321,25 +323,21 @@
       (define-key company-active-map (kbd "RET") 'company-complete-selection)
       (define-key company-active-map (kbd "TAB") 'company-complete-selection)
       (define-key company-active-map [tab] 'company-complete-selection))
-      (require 'lsp-mode)
-      (add-hook 'python-mode-hook #'lsp)
-      (with-eval-after-load 'lsp-mode
-        (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\\\.pyenv\\\\.*")
-        (lsp-register-client
-         (make-lsp-client :new-connection (lsp-tramp-connection "/home/awstone/phonetic-flashcards/venv/bin/pyls")
-                          :major-modes '(python-mode)
-                          :remote? t
-                          :server-id 'pyls-remote)))
-      (add-hook 'c++-mode-hook #'lsp)
-      (add-hook 'c-mode-hook #'lsp)
+      (use-package lsp-mode
+        :ensure t
+        :commands (lsp lsp-deferred)
+        :hook (python-mode . lsp-deferred)
+        :init
+        (setq lsp-pyls-plugins-pycodestyle-enabled nil
+              lsp-pyls-plugins-flake8-enabled t))
 
-      ;; Optional: Use lsp-ui for additional UI enhancements (e.g., inline documentation, diagnostics)
-      ;; (use-package lsp-ui
-      ;;  :commands lsp-ui-mode)
-      ;; (defadvice yank (after indent-region activate)
-      ;; (if (member major-mode '(emacs-lisp-mode lisp-mode clojure-mode scheme-mode haskell-mode ruby-mode rspec-mode python-mode c-mode c++-mode objc-mode latex-mode js-mode plain-tex-mode))
-      ;;    (let ((mark-even-if-inactive transient-mark-mode))
-      ;;      (indent-region (region-beginning) (region-end) nil))))
+    ;; Optional: Use lsp-ui for additional UI enhancements (e.g., inline documentation, diagnostics)
+    (use-package lsp-ui
+    :commands lsp-ui-mode)
+    (defadvice yank (after indent-region activate)
+      (if (member major-mode '(emacs-lisp-mode lisp-mode clojure-mode scheme-mode haskell-mode ruby-mode rspec-mode python-mode c-mode c++-mode objc-mode latex-mode js-mode plain-tex-mode))
+        (let ((mark-even-if-inactive transient-mark-mode))
+          (indent-region (region-beginning) (region-end) nil))))
 
     (defadvice yank-pop (after indent-region activate)
       (if (member major-mode '(emacs-lisp-mode lisp-mode clojure-mode scheme-mode haskell-mode ruby-mode rspec-mode python-mode c-mode c++-mode objc-mode latex-mode js-mode plain-tex-mode))
@@ -378,15 +376,15 @@
     (require 'projectile)
     (projectile-mode +1)
 
-    (defun my/projectile-lsp-setup ()
-      (let ((proj-root (projectile-project-root)))
-        (setq-local lsp-pylsp-server-command
-                    (list "ssh" "draco"
-                          (concat proj-root "venv/bin/pylsp")))))
+    ;; (defun my/projectile-lsp-setup ()
+    ;;   (let ((proj-root (projectile-project-root)))
+    ;;     (setq-local lsp-pylsp-server-command
+    ;;                 (list "ssh" "draco"
+    ;;                      (concat proj-root "venv/bin/pylsp")))))
 
-    (add-hook 'python-mode-hook #'my/projectile-lsp-setup)
+    ;; (add-hook 'python-mode-hook #'my/projectile-lsp-setup)
 
-    (require 'pyvenv)
+    ;; (require 'pyvenv)
 
     (with-eval-after-load 'nerd-icons
       (nerd-icons-install-fonts t))
@@ -396,6 +394,10 @@
     (scroll-bar-mode -1)
     (tool-bar-mode -1)
 
+    (use-package envrc
+      :ensure t
+      :config
+      (envrc-global-mode))
 
     '';
   };
