@@ -50,6 +50,7 @@
     texlive.combined.scheme-full
     docker
     python3
+    vscode
   ];
 
   # Enable home-manager and git
